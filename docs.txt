@@ -1,0 +1,9 @@
+Agrivision development notes
+============================
+
+See README.md for current installation instructions, API routes, privacy warnings and feature limitations.
+
+No demo admin login or password is included. Create a new local administrator only if necessary:
+    python manage.py createsuperuser
+
+Never distribute production credentials, real farmer data, Django SECRET_KEY, or live database connection strings.

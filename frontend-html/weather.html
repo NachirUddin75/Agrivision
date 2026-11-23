@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Agrivision | Weather &amp; Irrigation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="agr-dashboard-body" data-page-title="Weather & Irrigation">
+
+<div id="workspace-shell">
+    <div style="max-width: 1150px;">
+
+        <section class="agr-page-banner mb-4">
+            <div class="agr-banner-kicker">
+                <i class="bi bi-cloud-sun-fill"></i>
+                Agrivision Smart Farming
+            </div>
+            <h2 class="h3 mb-2">Weather &amp; Irrigation</h2>
+            <p>
+                Current conditions, 7-day forecast, and weather-aware irrigation guidance powered by Open-Meteo
+                and optional Google Gemini AI insights.
+            </p>
+        </section>
+
+        <section class="agr-workspace-card p-4 mb-4" aria-label="Weather search">
+            <form id="weather-form" class="row g-3 align-items-end">
+                <div class="col-md-8">
+                    <label class="form-label" for="weather-city">Your city or nearest town</label>
+                    <input
+                        class="form-control"
+                        id="weather-city"
+                        name="city"
+                        placeholder="e.g. Howrah or Kolkata"
+                        maxlength="80"
+                        required
+                        autocomplete="address-level2"
+                    >
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-agr w-100" type="submit" id="weather-submit">
+                        <i class="bi bi-search"></i>
+                        Get Weather Forecast
+                    </button>
+                </div>
+            </form>
+
+            <div class="d-flex flex-wrap align-items-center gap-2 mt-3">
+                <span class="small text-secondary fw-medium">Quick pick:</span>
+                <button type="button" class="agr-preset-pill" data-city="Howrah">Howrah</button>
+                <button type="button" class="agr-preset-pill" data-city="Kolkata">Kolkata</button>
+                <button type="button" class="agr-preset-pill" data-city="Pune">Pune</button>
+                <button type="button" class="agr-preset-pill" data-city="Delhi">Delhi</button>
+            </div>
+
+            <p id="weather-status" role="status" aria-live="polite" class="mt-3 mb-0 small text-secondary">
+                Enter a city or click a quick pick above.
+            </p>
+        </section>
+
+        <section id="weather-results" hidden>
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+                <h2 id="weather-place" class="h4 fw-bold text-dark mb-0"></h2>
+                <span class="agr-ai-badge-pill">Open-Meteo Live Forecast</span>
+            </div>
+
+            <div id="weather-current" class="row g-3 mb-4"></div>
+
+            <section class="agr-workspace-card p-4 mb-4">
+                <h3 class="h5 fw-bold text-dark mb-3">
+                    <i class="bi bi-calendar3 text-success me-2"></i>
+                    7-Day Forecast
+                </h3>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Date</th>
+                                <th>Conditions</th>
+                                <th>Min / Max</th>
+                                <th>Rain (mm)</th>
+                                <th>Rain chance</th>
+                            </tr>
+                        </thead>
+                        <tbody id="weather-days"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="agr-workspace-card p-4 mb-4">
+                <h3 class="h5 fw-bold text-dark mb-2">
+                    <i class="bi bi-droplet-fill text-primary me-2"></i>
+                    Irrigation Guidance
+                </h3>
+                <p id="irrigation-note" class="mb-2 text-dark"></p>
+                <p class="small text-muted mb-0">
+                    Educational guidance only; always check root-zone soil moisture before irrigating.
+                </p>
+            </section>
+
+            <section class="agr-ai-advice-card p-4">
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+                    <h3 class="h5 fw-bold text-dark mb-0">
+                        <i class="bi bi-stars text-success me-1"></i>
+                        Gemini Weather-Aware Advice
+                    </h3>
+                    <span class="agr-ai-badge-pill">Google Gemini</span>
+                </div>
+                <p class="text-secondary small mb-3">
+                    Combines this city's forecast with your latest saved soil analysis.
+                </p>
+                <div class="d-flex flex-wrap gap-2">
+                    <button type="button" class="btn btn-success fw-semibold" id="weather-ai-button">
+                        ✦ Generate Gemini Irrigation Advice
+                    </button>
+                    <button type="button" class="btn btn-light border fw-semibold d-none" id="weather-copy-button">
+                        Copy Advice
+                    </button>
+                </div>
+                <div id="weather-ai-output" class="agr-ai-output-box mt-3 d-none" aria-live="polite"></div>
+            </section>
+        </section>
+
+        <p class="my-4 text-secondary small mb-0">
+            Weather data: <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer" class="agr-link">Open-Meteo</a>.
+        </p>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/workspace.js"></script>
+<script src="js/weather.js"></script>
+</body>
+</html>
