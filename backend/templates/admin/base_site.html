@@ -1,0 +1,165 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | Agrivision Admin{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #0f3d28;
+    --secondary: #16a34a;
+    --accent: #86efac;
+    --primary-fg: #ffffff;
+    --body-fg: #1f2937;
+    --body-bg: #f6f8f6;
+    --body-quiet-color: #6b7280;
+    --body-loud-color: #111827;
+    --header-color: #ffffff;
+    --header-bg: linear-gradient(135deg, #072417 0%, #0f3d28 60%, #166534 100%);
+    --header-link-color: #dcfce7;
+    --breadcrumbs-fg: #6b7280;
+    --breadcrumbs-link-fg: #15803d;
+    --breadcrumbs-bg: #ffffff;
+    --link-fg: #15803d;
+    --link-hover-color: #16a34a;
+    --link-selected-fg: #0f3d28;
+    --hairline-color: #e5ebe6;
+    --border-color: #d1d5db;
+    --darkened-bg: #f0fdf4;
+    --selected-bg: #dcfce7;
+    --selected-row: #f0fdf4;
+    --button-fg: #ffffff;
+    --button-bg: #16a34a;
+    --button-hover-bg: #15803d;
+    --default-button-bg: #0f3d28;
+    --default-button-hover-bg: #14532d;
+    --delete-button-bg: #dc2626;
+    --delete-button-hover-bg: #b91c1c;
+    --message-success-bg: #dcfce7;
+    --message-warning-bg: #fef3c7;
+    --message-error-bg: #fee2e2;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--body-bg);
+    color: var(--body-fg);
+  }
+
+  h1, h2, h3, #site-name a {
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  }
+
+  #header {
+    background: linear-gradient(135deg, #072417 0%, #0f3d28 60%, #166534 100%);
+    color: #ffffff;
+    padding: 14px 28px;
+    box-shadow: 0 4px 16px rgba(15, 61, 40, 0.14);
+  }
+
+  #site-name a {
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+    color: #ffffff !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  div.breadcrumbs {
+    background: #ffffff;
+    border-bottom: 1px solid #e5ebe6;
+    padding: 12px 28px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  #content {
+    padding: 28px;
+  }
+
+  .module, #changelist-filter, .inline-group {
+    background: #ffffff;
+    border: 1px solid #e5ebe6;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.03);
+    margin-bottom: 20px;
+  }
+
+  .module h2, .module caption, .inline-group h2, #changelist-filter h2 {
+    background: #0f3d28;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    padding: 12px 16px;
+  }
+
+  #nav-sidebar {
+    background: #ffffff;
+    border-right: 1px solid #e5ebe6;
+  }
+
+  .button, input[type=submit], input[type=button], .submit-row input, a.button {
+    border-radius: 9px;
+    font-weight: 600;
+    padding: 9px 16px;
+    transition: all 0.15s ease;
+  }
+
+  input[type=text], input[type=password], input[type=email], input[type=number], input[type=url], select, textarea {
+    border-radius: 8px;
+    border: 1.5px solid #d1d5db;
+    padding: 8px 11px;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: #16a34a;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15);
+  }
+
+  body.login {
+    background:
+      radial-gradient(circle at 15% 15%, rgba(34, 197, 94, 0.12) 0%, transparent 45%),
+      radial-gradient(circle at 85% 85%, rgba(16, 185, 129, 0.10) 0%, transparent 45%),
+      #f6f8f6;
+  }
+
+  body.login #container {
+    border-radius: 18px;
+    border: 1px solid #e5ebe6;
+    box-shadow: 0 20px 50px rgba(15, 61, 40, 0.10);
+    overflow: hidden;
+  }
+
+  .agr-admin-badge {
+    background: rgba(134, 239, 172, 0.18);
+    color: #86efac;
+    border: 1px solid rgba(134, 239, 172, 0.35);
+    border-radius: 999px;
+    padding: 2px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+</style>
+{% endblock %}
+
+{% block branding %}
+<div id="site-name">
+  <a href="{% url 'admin:index' %}">
+    <span>🌱 Agrivision</span>
+    <span class="agr-admin-badge">Admin</span>
+  </a>
+</div>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
