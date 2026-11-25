@@ -17,32 +17,38 @@
 
         <section class="agr-page-banner mb-4">
             <div class="agr-banner-kicker">
-                <i class="bi bi-flower1"></i>
+                <i class="bi bi-stars"></i>
                 AI Crop Intelligence
             </div>
             <h2 class="h3 mb-2">Crop Recommendation</h2>
             <p>
-                Rule-based crop suitability scores computed from your soil measurements,
-                paired with optional Google Gemini educational explanations.
+                AI-powered crop recommendations tailored to your soil pH, moisture, nutrients, and location
+                using Google Gemini.
             </p>
         </section>
 
         <!-- Soil Record Selector -->
         <div id="soil-switcher-bar" class="agr-workspace-card p-3 px-4 mb-4 d-none">
             <div class="row g-3 align-items-center">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="soil-selector" class="form-label fw-semibold small text-dark mb-0">
                         <i class="bi bi-layers me-1 text-success"></i>
                         Active Soil Analysis
                     </label>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <select id="soil-selector" class="form-select"></select>
+                </div>
+                <div class="col-md-3 text-md-end">
+                    <button type="button" id="refresh-ai-btn" class="btn btn-outline-success fw-semibold w-100">
+                        <i class="bi bi-arrow-clockwise me-1"></i>
+                        Refresh AI Picks
+                    </button>
                 </div>
             </div>
         </div>
 
-        <p id="crop-status" class="alert alert-info rounded-4" role="status">Loading your personalized recommendations…</p>
+        <p id="crop-status" class="alert alert-info rounded-4" role="status">Loading AI crop recommendations…</p>
 
         <div id="crop-results" class="row g-4"></div>
 
@@ -55,13 +61,13 @@
                 <span class="agr-ai-badge-pill">Google Gemini</span>
             </div>
             <p class="small text-secondary mb-3">
-                Optional AI-generated educational guidance. Your rule-based recommendations above always work even without an API key.
+                Ask Gemini for a deeper summary of why these crops fit your soil and what to verify locally.
             </p>
             <div id="gemini-advice"></div>
         </section>
 
         <p class="small text-muted mt-4 mb-0">
-            Rule-based crop scores are illustrative. Gemini advice is educational, not a validated field prediction or live weather report.
+            AI recommendations are educational guidance; verify crop variety, season, and local field conditions before planting.
         </p>
 
     </div>
