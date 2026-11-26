@@ -1,3 +1,13 @@
+(function () {
+    if (!document.querySelector("link[rel~='icon']")) {
+        const link = document.createElement("link");
+        link.rel = "icon";
+        link.type = "image/svg+xml";
+        link.href = "favicon.svg";
+        document.head.appendChild(link);
+    }
+})();
+
 document.addEventListener("DOMContentLoaded", function () {
     const isAuthenticated = Boolean(localStorage.getItem("access_token"));
 

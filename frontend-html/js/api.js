@@ -1,3 +1,13 @@
+(function () {
+    if (!document.querySelector("link[rel~='icon']")) {
+        const link = document.createElement("link");
+        link.rel = "icon";
+        link.type = "image/svg+xml";
+        link.href = "favicon.svg";
+        document.head.appendChild(link);
+    }
+})();
+
 const API_BASE_URL = "/api";
 async function apiRequest(endpoint, options = {}) {
     const headers = { ...(options.body instanceof FormData ? {} : {"Content-Type":"application/json"}), ...(options.headers || {}) };
