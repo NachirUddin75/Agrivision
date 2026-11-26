@@ -76,7 +76,7 @@ def _post_gemini(key, model, body):
         raise GeminiUnavailable("Gemini is temporarily unavailable.") from exc
 
 
-def generate_ai_recommendations(soil, force_refresh=False):
+def generate_ai_recommendations(soil, force_refresh=False, cache_only=False):
     """Use Gemini to generate 6 tailored crop recommendations and care plans for the user's soil."""
     key, model = _get_api_config()
     cache_key = f"agrivision:ai_recs:{soil.id}:{model}"
@@ -84,6 +84,8 @@ def generate_ai_recommendations(soil, force_refresh=False):
         cached = cache.get(cache_key)
         if cached is not None:
             return cached
+    if cache_only:
+        raise GeminiUnavailable("AI recommendations have not been generated yet.")
 
     soil_summary = (
         f"Soil type: {soil.soil_type or 'unknown'}; "

@@ -20,9 +20,13 @@ def owned_soil(request):
     return owned.order_by("-created_at").first()
 
 
-def _resolve_recommendations(analysis, force_refresh=False):
+def _resolve_recommendations(analysis, use_ai=False, force_refresh=False):
     try:
-        ai_result = generate_ai_recommendations(analysis, force_refresh=force_refresh)
+        ai_result = generate_ai_recommendations(
+            analysis,
+            force_refresh=force_refresh,
+            cache_only=not (use_ai or force_refresh),
+        )
         return (
             ai_result["crops"],
             f"Google Gemini AI ({ai_result['model']})",
@@ -46,8 +50,11 @@ class RecommendationView(APIView):
         if analysis is None:
             return Response({"analysis": None, "recommendations": [], "message": "Create a soil analysis first."})
 
+        use_ai = request.query_params.get("use_ai") == "1"
         force_refresh = request.query_params.get("refresh") == "1"
-        results, method, ai_powered, disclaimer = _resolve_recommendations(analysis, force_refresh=force_refresh)
+        results, method, ai_powered, disclaimer = _resolve_recommendations(
+            analysis, use_ai=use_ai, force_refresh=force_refresh
+        )
 
         selected = request.query_params.get("crop", "")
         crop = next((c for c in results if c["name"].lower() == selected.lower()), None) if selected else (results[0] if results else None)

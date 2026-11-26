@@ -44,7 +44,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (refreshBtn) {
         refreshBtn.addEventListener("click", () => {
             const next = new URLSearchParams(window.location.search);
-            next.set("refresh", "1");
+            next.set("use_ai", "1");
+            if (refreshBtn.dataset.aiActive === "1") {
+                next.set("refresh", "1");
+            }
             window.location.search = next.toString();
         });
     }
@@ -52,6 +55,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const q = new URLSearchParams();
     if (params.get("soil_id")) q.set("soil_id", params.get("soil_id"));
     if (params.get("crop")) q.set("crop", params.get("crop"));
+    if (params.get("use_ai") === "1") q.set("use_ai", "1");
     if (params.get("refresh") === "1") q.set("refresh", "1");
 
     const reply = await apiRequest(`/crops/recommendations/?${q.toString()}`);
@@ -161,7 +165,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         advicePanel.append(btnGroup, output);
     }
 
-    const aiTag = reply.data.ai_powered ? "✦ AI-Recommended" : "Fallback Mode";
+    if (refreshBtn) {
+        refreshBtn.dataset.aiActive = reply.data.ai_powered ? "1" : "0";
+        refreshBtn.textContent = reply.data.ai_powered ? "↻ Refresh AI Picks" : "✦ Generate AI Picks";
+    }
+    const aiTag = reply.data.ai_powered ? "✦ AI-Recommended" : "Basic Screening (click Generate AI Picks for Gemini AI)";
     const locLabel = reply.data.analysis.location ? `, ${reply.data.analysis.location}` : "";
     message.className = "alert alert-success rounded-4 border-success-subtle";
     message.textContent = `${aiTag} for soil analysis #${reply.data.analysis.id} (${reply.data.analysis.soil_type || "soil"}, pH ${reply.data.analysis.soil_ph ?? "—"}${locLabel}) · ${reply.data.method}`;
